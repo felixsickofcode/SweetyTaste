@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1743413207 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
+	"player.h"
+
+1743413109 c:\users\admin\onedrive\desktop\sweetytatse\player.h
+	<SDL.h>
+
+1743412780 source:c:\users\admin\onedrive\desktop\sweetytatse\game.cpp
+	"game.h"
+
+1743413118 c:\users\admin\onedrive\desktop\sweetytatse\game.h
+	<SDL.h>
+	"player.h"
+
+1743413170 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+	"game.h"
+
