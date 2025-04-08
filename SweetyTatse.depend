@@ -12,6 +12,270 @@
 	<SDL.h>
 	"player.h"
 
-1743413170 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
-	"game.h"
+1744125365 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<bits/stdc++.h>
+
+1744107483 source:d:\tmxparser\src\miniz.c
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<assert.h>
+	<stdio.h>
+	<sys/stat.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<utime.h>
+	<utime.h>
+
+1744107483 source:d:\tmxparser\src\tmxcolor.cpp
+	"TmxColor.h"
+	<cstdio>
+	<cstdlib>
+
+1744107483 source:d:\tmxparser\src\tmxellipse.cpp
+	"TmxEllipse.h"
+
+1744107483 source:d:\tmxparser\src\tmxutil.cpp
+	<stdlib.h>
+	<algorithm>
+	<cctype>
+	<functional>
+	"miniz.c"
+	<zlib.h>
+	<stdio.h>
+	"TmxUtil.h"
+	"base64/base64.h"
+
+1744107483 d:\tmxparser\src\miniz.c
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<assert.h>
+	<stdio.h>
+	<sys/stat.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<sys/utime.h>
+	<utime.h>
+	<utime.h>
+
+1744109309 source:d:\tinyxml2\tinyxml2.cpp
+	"tinyxml2.h"
+	<new>
+	<stddef.h>
+	<stdarg.h>
+	<cstddef>
+	<cstdarg>
+
+1744109309 d:\tinyxml2\tinyxml2.h
+	<ctype.h>
+	<limits.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stddef.h>
+	<cctype>
+	<climits>
+	<cstdio>
+	<cstdlib>
+	<cstring>
+	<stdint.h>
+	<android/log.h>
+	<assert.h>
+
+1744109309 source:d:\tinyxml2\xmltest.cpp
+	"tinyxml2.h"
+	<cerrno>
+	<cstdlib>
+	<cstring>
+	<ctime>
+	<crtdbg.h>
+	<windows.h>
+	<sys/stat.h>
+	<sys/types.h>
+
+1744107483 source:d:\tmxparser\src\tmxgrouplayer.cpp
+	<tinyxml2.h>
+	<cstdlib>
+	<cassert>
+	<cstring>
+	"TmxLayer.h"
+	"TmxGroupLayer.h"
+	"TmxTileLayer.h"
+	"TmxObjectGroup.h"
+	"TmxImageLayer.h"
+
+1744107483 source:d:\tmxparser\src\tmximage.cpp
+	<tinyxml2.h>
+	"TmxImage.h"
+
+1744107483 source:d:\tmxparser\src\tmximagelayer.cpp
+	<tinyxml2.h>
+	<cstdlib>
+	<cassert>
+	"TmxLayer.h"
+	"TmxImageLayer.h"
+	"TmxImage.h"
+
+1744107483 source:d:\tmxparser\src\tmxlayer.cpp
+	<tinyxml2.h>
+	<algorithm>
+	"miniz.c"
+	<zlib.h>
+	<stdlib.h>
+	<stdio.h>
+	"TmxLayer.h"
+	"TmxUtil.h"
+	"TmxMap.h"
+	"TmxTileset.h"
+
+1744107483 source:d:\tmxparser\src\tmxmap.cpp
+	<tinyxml2.h>
+	<stdio.h>
+	"TmxMap.h"
+	"TmxTileset.h"
+	"TmxLayer.h"
+	"TmxTileLayer.h"
+	"TmxObjectGroup.h"
+	"TmxImageLayer.h"
+	"TmxGroupLayer.h"
+
+1744107483 source:d:\tmxparser\src\tmxobject.cpp
+	<tinyxml2.h>
+	"TmxObject.h"
+	"TmxPolygon.h"
+	"TmxPolyline.h"
+	"TmxEllipse.h"
+	"TmxText.h"
+
+1744107483 source:d:\tmxparser\src\tmxobjectgroup.cpp
+	<tinyxml2.h>
+	"TmxLayer.h"
+	"TmxObjectGroup.h"
+	"TmxObject.h"
+
+1744107483 source:d:\tmxparser\src\tmxpolygon.cpp
+	<tinyxml2.h>
+	<cstdlib>
+	"TmxPolygon.h"
+
+1744107483 source:d:\tmxparser\src\tmxpolyline.cpp
+	<tinyxml2.h>
+	<cstdlib>
+	"TmxPolyline.h"
+
+1744107483 source:d:\tmxparser\src\tmxproperty.cpp
+	<tinyxml2.h>
+	"TmxProperty.h"
+
+1744107483 source:d:\tmxparser\src\tmxpropertyset.cpp
+	<tinyxml2.h>
+	<cstdlib>
+	"TmxPropertySet.h"
+
+1744107483 source:d:\tmxparser\src\tmxterrain.cpp
+	<tinyxml2.h>
+	"TmxTerrain.h"
+
+1744107483 source:d:\tmxparser\src\tmxterrainarray.cpp
+	<tinyxml2.h>
+	<cstdlib>
+	"TmxTerrainArray.h"
+	"TmxTerrain.h"
+
+1744107483 source:d:\tmxparser\src\tmxtext.cpp
+	"TmxText.h"
+	<tinyxml2.h>
+	<cstdlib>
+
+1744107483 source:d:\tmxparser\src\tmxtile.cpp
+	<tinyxml2.h>
+	"TmxTile.h"
+	"TmxObject.h"
+
+1744107483 source:d:\tmxparser\src\tmxtilelayer.cpp
+	<tinyxml2.h>
+	<algorithm>
+	"miniz.c"
+	<zlib.h>
+	<stdlib.h>
+	<stdio.h>
+	"TmxLayer.h"
+	"TmxTileLayer.h"
+	"TmxUtil.h"
+	"TmxMap.h"
+	"TmxTileset.h"
+
+1744107483 source:d:\tmxparser\src\tmxtileoffset.cpp
+	<tinyxml2.h>
+	"TmxTileOffset.h"
+
+1744107483 source:d:\tmxparser\src\tmxtileset.cpp
+	<tinyxml2.h>
+	<cassert>
+	"TmxTileset.h"
+	"TmxTileOffset.h"
+	"TmxTerrainArray.h"
+	"TmxTerrain.h"
+	"TmxImage.h"
+	"TmxTile.h"
+	"TmxMap.h"
+
+1744121189 c:\users\admin\onedrive\desktop\sweetytatse\tileson.hpp
+	<string>
+	<vector>
+	<map>
+	<memory>
+	<initializer_list>
+	<cassert>
+	<cmath>
+	<cstdlib>
+	<cstdio>
+	<limits>
+	<filesystem>
+	<filesystem>
+	<experimental/filesystem>
+	<experimental/filesystem>
+	<filesystem>
+	<experimental/filesystem>
+	<filesystem>
+	<fstream>
+	<sstream>
+	<memory>
+	<cstdint>
+	<vector>
+	<string_view>
+	<string_view>
+	<string>
+	<memory>
+	<vector>
+	<string_view>
+	<functional>
+	<algorithm>
+	<iostream>
+	<functional>
+	<type_traits>
+	<cstdint>
+	<string>
+	<memory>
+	<set>
+	<any>
+	<string>
+	<cstdint>
+	<type_traits>
+	<iostream>
+	<map>
+	<string>
+	<optional>
+	<string>
+	<functional>
+	<fstream>
+	<sstream>
+	<memory>
+	<memory>
+
+1744125328 source:c:\users\admin\onedrive\desktop\sweetytatse\graphic.cpp
 

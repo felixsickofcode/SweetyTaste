@@ -30,6 +30,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++17" />
 		</Compiler>
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
