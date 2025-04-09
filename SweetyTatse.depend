@@ -12,10 +12,11 @@
 	<SDL.h>
 	"player.h"
 
-1744125365 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+1744220717 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
 	<SDL.h>
 	<SDL_image.h>
-	<bits/stdc++.h>
+	<iostream>
+	"map.h"
 
 1744107483 source:d:\tmxparser\src\miniz.c
 	<stdlib.h>
@@ -278,4 +279,15 @@
 	<memory>
 
 1744125328 source:c:\users\admin\onedrive\desktop\sweetytatse\graphic.cpp
+
+1744194137 c:\users\admin\onedrive\desktop\sweetytatse\map.h
+	<SDL.h>
+	"tileson.hpp"
+	<string>
+	<vector>
+
+1744220737 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
+	"Map.h"
+	<SDL_image.h>
+	<iostream>
 
