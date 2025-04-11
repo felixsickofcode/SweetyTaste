@@ -32,6 +32,10 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++17" />
 		</Compiler>
+		<Unit filename="baseobj.cpp" />
+		<Unit filename="baseobj.h" />
+		<Unit filename="func.cpp" />
+		<Unit filename="func.h" />
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />

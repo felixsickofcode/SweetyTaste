@@ -1,30 +1,97 @@
-
 #include "player.h"
 
-Player::Player() : x(100), y(500), velX(0), velY(0) {}
+Player::Player()
+{
+    x_val = 0;
+    y_val = 0;
+    frame = 0;
+    x_pos = 0;
+    y_pos = 0;
+    w_frame = 0;
+    h_frame = 0;
+    status = -1;
+}
+bool Player::LoadImg(std::string path, SDL_Renderer* renderer)
+{
+    bool ret = baseobj::LoadImg(path, renderer);
 
-void Player::handleEvent(SDL_Event& e) {
-    if (e.type == SDL_KEYDOWN) {
-        switch (e.key.keysym.sym) {
-            case SDLK_LEFT: velX = -1; break;
-            case SDLK_RIGHT: velX = 1; break;
-            case SDLK_UP: velY = -2; break;
+    if ( ret == true)
+    {
+        w_frame = rect_.w/8;
+        h_frame = rect_.h/11;
+    }
+    return ret;
+}
+void Player::SetClips()
+{
+    if (w_frame > 0 && h_frame > 0)
+    {
+        for (int i = 0; i <= 5; i++)
+        {
+            frame_clip[i].x = i * w_frame;
+            frame_clip[i].y = 2 * h_frame;
+            frame_clip[i].w = w_frame;
+            frame_clip[i].h = h_frame;
         }
     }
-    if (e.type == SDL_KEYUP) {
-        velX = 0;
-        velY = 0;
+
+}
+void Player::Show(SDL_Renderer* des)
+{
+    LoadImg("asset/Characters/generic_char_v0.2/png/blue/CHAR.png", des);
+
+    if(inp_type.left == 1 || inp_type.right == 1)
+        frame++;
+    else
+        frame = 0;
+    if (frame >= 6)
+        frame = 0;
+    rect_.x = x_pos;
+    rect_.y = y_pos;
+
+    SDL_Rect* current_clip = &frame_clip[frame];
+    SDL_Rect renderQuad = {rect_.x, rect_.y,w_frame, h_frame};
+    SDL_RenderCopy(des, p_object_, current_clip, & renderQuad);
+}
+
+void Player::HandleInput(SDL_Event events, SDL_Renderer* screen)
+{
+    if ( events.type == SDL_KEYDOWN)
+    {
+        switch(events.key.keysym.sym)
+        {
+            case SDLK_RIGHT:
+            {
+                status= WALK_RIGHT;
+                inp_type.right = 1;
+            }
+            break;
+            case SDLK_LEFT:
+            {
+                status= WALK_LEFT;
+                inp_type.left = 1;
+            }
+            break;
+        }
     }
-}
+    else if (events.type == SDL_KEYUP)
+    {
+        switch(events.key.keysym.sym)
+        {
+            case SDLK_RIGHT:
+            {
+                status= WALK_RIGHT;
+                inp_type.right = 0;
+            }
+            break;
+            case SDLK_LEFT:
+            {
+                status= WALK_LEFT;
+                inp_type.left = 0;
+            }
+            break;
+        }
+    }
 
-void Player::update() {
-    x += velX;
-    y += velY;
-    if (y > 500) y = 500;
-}
 
-void Player::render(SDL_Renderer* renderer) {
-    SDL_Rect rect = {x, y, 50, 50};
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &rect);
 }

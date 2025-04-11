@@ -1,0 +1,90 @@
+for (const auto& layer : mp.getLayers()) {
+
+        if (layer.getType() == tson::LayerType::TileLayer) {
+            for (const auto& [pos, tile] : layer.getTileData()) {
+                if (tile != nullptr) {
+                    int tileId = tile->getId();
+                    if (tileId == 0) continue; // Bỏ qua tile ID = 0
+
+                    auto it = tileTextures.find(tileId);
+                    if (it != tileTextures.end() && it->second != nullptr) {
+                        SDL_Texture* texture = it->second;
+
+                        tson::Vector2i tileSize = tile->getImageSize();
+
+                        SDL_Rect dstRect;
+                        dstRect.x = std::get<0>(pos) * 32  ;
+                        dstRect.y = (std::get<1>(pos) * 32 - tileSize.y );
+                        dstRect.w = tileSize.x ;
+                        dstRect.h = tileSize.y ;
+
+                        SDL_RenderCopy(renderer, texture, nullptr, &dstRect);
+                    }
+                }
+            }
+        }
+    }
+//void Map::loadTilesetsInfo()
+//{
+//    // Lấy tất cả tileset
+//    for (auto& tileset : mp.getTilesets())
+//    {
+//        std::cout << "Tileset name: " << tileset.getName() << "\n";
+//        std::cout << "Tile count: " << tileset.getTileCount() << "\n";
+//        std::cout << "Tile size: " << tileset.getTileSize().x << "x" << tileset.getTileSize().y << "\n";
+//
+//        // Duyệt từng tile trong tileset collection
+//        for (auto& tile : tileset.getTiles())
+//        {
+//            std::cout << "  Tile ID: " << tile.getId() << "\n";
+//            std::cout << "  Tile Image Path: " << tile.getImage() << "\n";
+//            std::cout << "  Tile Size: " << tile.getImageSize().x << "x" << tile.getImageSize().y << "\n";
+//        }
+//    }
+//}
+//void Map::loadLayersInfo()
+//{
+//    for (const auto& layer : mp.getLayers())
+//    {
+//        std::cout << "Layer name: " << layer.getName() << "\n";
+//        std::cout << "Layer type: ";
+//
+//        switch (layer.getType())
+//        {
+//            case tson::LayerType::TileLayer:
+//                std::cout << "Tile Layer\n";
+//                break;
+//            case tson::LayerType::ObjectGroup:
+//                std::cout << "Object Group\n";
+//                break;
+//            case tson::LayerType::ImageLayer:
+//                std::cout << "Image Layer\n";
+//                break;
+//            default:
+//                std::cout << "Other\n";
+//                break;
+//        }
+//
+//        // Nếu là layer tile thì duyệt tile
+//        if (layer.getType() == tson::LayerType::TileLayer)
+//        {
+//            for (const auto& pair : layer.getTileData())
+//            {
+//                const auto& pos = pair.first;
+//                const auto& tile = pair.second;
+//
+//                int x = std::get<0>(pos);
+//                int y = std::get<1>(pos);
+//
+//                std::cout << "Tile at (" << x << ", " << y << ") ";
+//                if (tile != nullptr)
+//                std::cout << "ID: " << tile->getId() << "\n";
+//                else
+//                std::cout << "is empty\n";
+//            }
+//
+//        }
+//
+//        std::cout << "--------------------------\n";
+//    }
+//}

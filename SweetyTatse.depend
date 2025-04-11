@@ -1,22 +1,22 @@
 # depslib dependency file v1.0
-1743413207 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
+1744388585 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
 	"player.h"
 
-1743413109 c:\users\admin\onedrive\desktop\sweetytatse\player.h
-	<SDL.h>
+1744384457 c:\users\admin\onedrive\desktop\sweetytatse\player.h
+	"baseobj.h"
+	"func.h"
 
-1743412780 source:c:\users\admin\onedrive\desktop\sweetytatse\game.cpp
-	"game.h"
+1744285628 source:c:\users\admin\onedrive\desktop\sweetytatse\game.cpp
 
 1743413118 c:\users\admin\onedrive\desktop\sweetytatse\game.h
 	<SDL.h>
 	"player.h"
 
-1744220717 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
-	<SDL.h>
-	<SDL_image.h>
-	<iostream>
+1744387681 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
 	"map.h"
+	"func.h"
+	"baseobj.h"
+	"player.h"
 
 1744107483 source:d:\tmxparser\src\miniz.c
 	<stdlib.h>
@@ -280,14 +280,27 @@
 
 1744125328 source:c:\users\admin\onedrive\desktop\sweetytatse\graphic.cpp
 
-1744194137 c:\users\admin\onedrive\desktop\sweetytatse\map.h
-	<SDL.h>
+1744377362 c:\users\admin\onedrive\desktop\sweetytatse\map.h
+	"func.h"
 	"tileson.hpp"
+	"baseobj.h"
+
+1744379259 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
+	"Map.h"
+
+1744381867 c:\users\admin\onedrive\desktop\sweetytatse\func.h
+	<SDL.h>
+	<SDL_image.h>
+	<iostream>
 	<string>
 	<vector>
 
-1744220737 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
-	"Map.h"
-	<SDL_image.h>
-	<iostream>
+1744309605 source:c:\users\admin\onedrive\desktop\sweetytatse\baseobj.cpp
+	"baseobj.h"
+
+1744297710 source:c:\users\admin\onedrive\desktop\sweetytatse\func.cpp
+	"func.h"
+
+1744381088 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
+	"func.h"
 
