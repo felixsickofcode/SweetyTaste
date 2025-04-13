@@ -8,7 +8,7 @@ bool Map::load() {
     std::unique_ptr<tson::Map> result = parser.parse(fs::path(mapFile));
 
     if (result && result->getStatus() == tson::ParseStatus::OK) {
-        mp = std::move(*result); // Giải dereference con unique_ptr
+        mp = std::move(*result);
         std::cout << "Map loaded successfully!\n";
     return true;
 }
@@ -16,8 +16,8 @@ bool Map::load() {
         std::cerr << "Failed to load map: " << mapFile << "\n";
         return false;
     }
-
 }
+
 void Map::loadTextures(SDL_Renderer* renderer)
 {
     for (auto& tileset : mp.getTilesets())
@@ -44,33 +44,71 @@ void Map::loadTextures(SDL_Renderer* renderer)
             tileTextures[tile.getId()].LoadImg(imagePath.c_str(), renderer);
             //tileTextures[tile.getId()] = texture;
 
-            std::cout << "Loaded texture for tile " << tile.getId() << "\n";
+            //std::cout << "Loaded texture for tile " << tile.getId() << "\n";
         }
     }
 }
 
 void Map::render(SDL_Renderer* renderer) {
-    for (const auto& layer : mp.getLayers()) {
+    for (tson::Layer& layer : mp.getLayers()) { // Duyệt từng layer
         if (layer.getType() == tson::LayerType::TileLayer) {
-            for (const auto& [pos, tile] : layer.getTileData()) {
-                if (tile != nullptr) {
-                    int tileId = tile->getId();
-                    if (tileId == 0 || tileId >= 250) continue; // Bỏ tile id không hợp lệ
-
-                    tson::Vector2i tileSize = tile->getImageSize();
 
 
-                    tileTextures[tileId].SetRect(
-                        std::get<0>(pos) * 32,
-                        std::get<1>(pos) * 32 - tileSize.y
-                    );
 
-                    tileTextures[tileId].Render(renderer);
+            int x1 = visual_map.start_x / TileSize;
+            int x2 = (visual_map.start_x + game_w) / TileSize +1;
+
+            int y1 = visual_map.start_y / TileSize;
+            int y2 = (visual_map.start_y + game_h) / TileSize +1;
+
+            for (int row = y1; row <= y2; ++row) {
+                for (int col = x1; col <= x2; ++col) {
+
+                    tson::Tile* tile = layer.getTileData(col, row);
+                    if (tile != nullptr) {
+                        int tileId = tile->getId();
+                        if (tileId == 0 || tileId >= 250) continue;
+
+                        tson::Vector2i tileSizeInImage = tile->getImageSize();
+
+                        tileTextures[tileId].SetRect(
+                            col * TileSize - visual_map.start_x,
+                            row * TileSize - visual_map.start_y - tileSizeInImage.y
+                        );
+
+                        tileTextures[tileId].Render(renderer);
+                    }
                 }
             }
         }
     }
 }
+
+void Map::SaveCollision()
+{
+     for (tson::Layer& layer : mp.getLayers()) {
+        if (layer.getType() != tson::LayerType::TileLayer || layer.getName() != "terrian") continue;
+        {
+            std::memset(game_map.tile, 0, sizeof(game_map.tile));
+
+            for (const auto& [pos, tile] : layer.getTileData()) {
+                if (tile != nullptr) {
+                    int tileId = tile->getId();
+                    if (tileId == 0 || tileId >= 250) continue;
+                    tson::Vector2i tileSize = tile->getImageSize();
+                    int X =  std::get<0>(pos);
+                    int Y =  std::get<1>(pos);
+                        game_map.tile[Y][X] = tileId;
+
+                }
+            }
+        }
+    }
+}
+
+
+
+
 
 
 

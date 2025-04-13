@@ -1,10 +1,12 @@
 # depslib dependency file v1.0
-1744388585 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
+1744561335 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
 	"player.h"
+	"map.h"
 
-1744384457 c:\users\admin\onedrive\desktop\sweetytatse\player.h
+1744561411 c:\users\admin\onedrive\desktop\sweetytatse\player.h
 	"baseobj.h"
 	"func.h"
+	"timer.h"
 
 1744285628 source:c:\users\admin\onedrive\desktop\sweetytatse\game.cpp
 
@@ -12,11 +14,12 @@
 	<SDL.h>
 	"player.h"
 
-1744387681 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+1744559321 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
 	"map.h"
 	"func.h"
 	"baseobj.h"
 	"player.h"
+	"timer.h"
 
 1744107483 source:d:\tmxparser\src\miniz.c
 	<stdlib.h>
@@ -280,27 +283,35 @@
 
 1744125328 source:c:\users\admin\onedrive\desktop\sweetytatse\graphic.cpp
 
-1744377362 c:\users\admin\onedrive\desktop\sweetytatse\map.h
+1744557669 c:\users\admin\onedrive\desktop\sweetytatse\map.h
 	"func.h"
 	"tileson.hpp"
 	"baseobj.h"
 
-1744379259 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
+1744557708 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
 	"Map.h"
 
-1744381867 c:\users\admin\onedrive\desktop\sweetytatse\func.h
+1744561519 c:\users\admin\onedrive\desktop\sweetytatse\func.h
 	<SDL.h>
 	<SDL_image.h>
 	<iostream>
 	<string>
 	<vector>
+	<cmath>
+	<cstring>
 
 1744309605 source:c:\users\admin\onedrive\desktop\sweetytatse\baseobj.cpp
 	"baseobj.h"
 
-1744297710 source:c:\users\admin\onedrive\desktop\sweetytatse\func.cpp
+1744557592 source:c:\users\admin\onedrive\desktop\sweetytatse\func.cpp
 	"func.h"
 
-1744381088 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
+1744557426 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
+	"func.h"
+
+1744558574 source:c:\users\admin\onedrive\desktop\sweetytatse\timer.cpp
+	"timer.h"
+
+1744560454 c:\users\admin\onedrive\desktop\sweetytatse\timer.h
 	"func.h"
 

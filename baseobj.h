@@ -1,5 +1,5 @@
-#ifndef BASE_OBJECT_H_
-#define BASE_OBJECT_H_
+#ifndef BASE_OBJECT_H
+#define BASE_OBJECT_H
 
 #include "func.h"
 
@@ -15,7 +15,9 @@ public:
     }
     SDL_Rect GetRect() const { return rect_;}
     SDL_Texture* GetObject() const { return p_object_; }
+
     virtual bool LoadImg(std::string path, SDL_Renderer* renderer);
+
     void Render(SDL_Renderer* des, const SDL_Rect* clip = NULL);
     void Free();
 protected:

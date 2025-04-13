@@ -2,13 +2,16 @@
 #include "func.h"
 #include "baseobj.h"
 #include "player.h"
+#include "timer.h"
+
 bool inidata()
 {
+
     bool success = true;
     int ret = SDL_Init(SDL_INIT_VIDEO);
     if ( ret < 0) return false;
     window = SDL_CreateWindow("SweetyTaste",
-                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game_w, game_h, SDL_WINDOW_SHOWN);
+                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game_w * Scale, game_h * Scale, SDL_WINDOW_SHOWN);
     if ( window == NULL) success = false;
     else
     {
@@ -22,9 +25,10 @@ bool inidata()
 
         }
     }
-    SDL_RenderSetScale(renderer, scale_, scale_);
+    SDL_RenderSetScale(renderer, Scale, Scale);
     return success;
 }
+
 void close()
 {
     SDL_DestroyRenderer(renderer);
@@ -33,37 +37,13 @@ void close()
     window = NULL;
     SDL_Quit();
 }
+
 int main(int argc, char* argv[])
 {
+    ImpTimer Timer;
     if (!inidata()) return -1;
-{// Khởi tạo
-//    if (SDL_Init(SDL_INIT_VIDEO) != 0)
-//    {
-//        std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
-//        return 1;
-//    }
-//    SDL_Window* window = SDL_CreateWindow("SweetyTaste",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, game_w, game_h, SDL_WINDOW_SHOWN);
-//    if (!window)
-//    {
-//        std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-//        SDL_Quit();
-//        return 1;
-//    }
-//    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-//    SDL_RenderSetScale(renderer, scale_, scale_);
-//    if (!renderer)
-//    {
-//        std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-//        SDL_DestroyWindow(window);
-//        SDL_Quit();
-//        return 1;
-//    }
-//    SDL_Event event;
-//---------------------------------------------------------------------------
-}
-
     //MAP
-    Map mp("map2.json");
+    Map mp("map.json");
     if (!mp.load())
     {
         std::cout << "Failed to load map!\n";
@@ -74,22 +54,17 @@ int main(int argc, char* argv[])
         return 1;
     }
     mp.loadTextures(renderer);
-
+    mp.SaveCollision();
     //PLAYER
     Player player;
-    player.LoadImg("asset/Characters/generic_char_v0.2/png/blue/CHAR.png", renderer);
-
+    player.LoadImg("asset/Knight/Run.png", renderer);
     player.SetClips();
     //GAMELOOP
-    const int FPS = 60;
-    const int frameDelay = 1000 / FPS;
-    Uint32 frameStart;
-    int frameTime;
 
     bool isRunning = true;
     while (isRunning)
     {
-        frameStart = SDL_GetTicks();
+        Timer.Start();
         while (SDL_PollEvent(&event))
         {
             if (event.type == SDL_QUIT)
@@ -101,16 +76,25 @@ int main(int argc, char* argv[])
 
         SDL_RenderClear(renderer);
         //-----
+
         mp.render(renderer);
         player.Show(renderer);
+        player.SetMapPos(mp.visual_map.start_x, mp.visual_map.start_y);
+        player.DoPlayer(mp.game_map, mp.visual_map);
+
         //-----
         SDL_RenderPresent(renderer);
 
-        frameTime = SDL_GetTicks() - frameStart;
-        if (frameDelay > frameTime)
+        int true_time = Timer.GetTicks();
+        int time_one_frame = 1000 / fps;
+        if (true_time < time_one_frame)
         {
-            SDL_Delay(frameDelay - frameTime);
+            int delay_time = time_one_frame - true_time;
+            if ( delay_time >= 0)
+                SDL_Delay(delay_time);
+
         }
+
     }
 
     close();
