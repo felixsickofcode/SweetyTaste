@@ -8,17 +8,20 @@
 #include <vector>
 #include <cmath>
 #include <cstring>
+#include <map>
 
+#define SLOPE_TILE_DOWN 146
 #define BLANK_TILE 0
 #define TileSize 32
 #define Scale 2.5
 #define MapX 200
-#define MapY 8
+#define MapY 12
 
 #define OffsetY 17
-#define OffsetX 40
+#define OffsetX 47
 #define MaxFallSpeed 2
 #define PlayerSpeed 2.5
+#define PlayerJump 2.5
 
 static SDL_Window* window = NULL ;
 static SDL_Renderer* renderer = NULL;
@@ -30,13 +33,11 @@ const int fps = 60;
 
 typedef struct Input
 {
-    int left;
-    int right;
-    int up;
-    int down;
-    int dash;
-    int jump;
-};
+    int left = 0;
+    int right = 0;
+    int attack = 0;
+    int jump = 0;
+} Input;
 
 typedef struct MapObject
 {
@@ -48,8 +49,8 @@ typedef struct MapObject
 
     int tile[MapY][MapX];
 };
-namespace CommonFunc
-{
+
+    SDL_Texture* LoadTexture(const std::string& path, SDL_Renderer* renderer);
     bool CheckCollision(const SDL_Rect& a, const SDL_Rect& b) ;
-}
+
 #endif // FUNC_H_

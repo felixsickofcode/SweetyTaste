@@ -43,6 +43,8 @@
 		<Unit filename="map.h" />
 		<Unit filename="player.cpp" />
 		<Unit filename="player.h" />
+		<Unit filename="timer.cpp" />
+		<Unit filename="timer.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

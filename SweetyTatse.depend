@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1744561335 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
+1744746051 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
 	"player.h"
 	"map.h"
 
-1744561411 c:\users\admin\onedrive\desktop\sweetytatse\player.h
+1744714401 c:\users\admin\onedrive\desktop\sweetytatse\player.h
 	"baseobj.h"
 	"func.h"
 	"timer.h"
@@ -14,7 +14,7 @@
 	<SDL.h>
 	"player.h"
 
-1744559321 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+1744656123 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
 	"map.h"
 	"func.h"
 	"baseobj.h"
@@ -283,15 +283,15 @@
 
 1744125328 source:c:\users\admin\onedrive\desktop\sweetytatse\graphic.cpp
 
-1744557669 c:\users\admin\onedrive\desktop\sweetytatse\map.h
+1744669414 c:\users\admin\onedrive\desktop\sweetytatse\map.h
 	"func.h"
 	"tileson.hpp"
 	"baseobj.h"
 
-1744557708 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
+1744670374 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
 	"Map.h"
 
-1744561519 c:\users\admin\onedrive\desktop\sweetytatse\func.h
+1744715177 c:\users\admin\onedrive\desktop\sweetytatse\func.h
 	<SDL.h>
 	<SDL_image.h>
 	<iostream>
@@ -299,19 +299,20 @@
 	<vector>
 	<cmath>
 	<cstring>
+	<map>
 
-1744309605 source:c:\users\admin\onedrive\desktop\sweetytatse\baseobj.cpp
+1744610306 source:c:\users\admin\onedrive\desktop\sweetytatse\baseobj.cpp
 	"baseobj.h"
 
-1744557592 source:c:\users\admin\onedrive\desktop\sweetytatse\func.cpp
+1744610607 source:c:\users\admin\onedrive\desktop\sweetytatse\func.cpp
 	"func.h"
 
-1744557426 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
+1744715101 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
 	"func.h"
 
 1744558574 source:c:\users\admin\onedrive\desktop\sweetytatse\timer.cpp
 	"timer.h"
 
-1744560454 c:\users\admin\onedrive\desktop\sweetytatse\timer.h
+1744638998 c:\users\admin\onedrive\desktop\sweetytatse\timer.h
 	"func.h"
 

@@ -14,7 +14,6 @@ public:
         rect_.y = y;
     }
     SDL_Rect GetRect() const { return rect_;}
-    SDL_Texture* GetObject() const { return p_object_; }
 
     virtual bool LoadImg(std::string path, SDL_Renderer* renderer);
 
@@ -23,5 +22,6 @@ public:
 protected:
     SDL_Texture* p_object_;
     SDL_Rect rect_;
+    SDL_Texture* texture;
 };
 #endif // BASE_OBJECT_H_

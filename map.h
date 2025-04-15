@@ -25,7 +25,7 @@ public:
     void loadTextures(SDL_Renderer* renderer);
     void render(SDL_Renderer* renderer);
     void SaveCollision();
-
+    void printf();
 private:
     Tilebrick tileTextures[250];
     std::string mapFile;

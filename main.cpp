@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
     mp.SaveCollision();
     //PLAYER
     Player player;
-    player.LoadImg("asset/Knight/Run.png", renderer);
+    player.LoadImg(renderer);
     player.SetClips();
     //GAMELOOP
 
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
             {
                 isRunning = false;
             }
-            player.HandleInput(event, renderer);
+            player.HandleInput(event);
         }
 
         SDL_RenderClear(renderer);

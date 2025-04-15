@@ -18,8 +18,10 @@ public:
 
     bool IsStarted();
     bool IsPaused();
-private:
+
     int start_tick;
+private:
+
     int pause_tick;
 
     bool is_paused;

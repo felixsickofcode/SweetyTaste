@@ -45,3 +45,5 @@ void baseobj::Free()
         rect_.h = 0;
     }
 }
+
+

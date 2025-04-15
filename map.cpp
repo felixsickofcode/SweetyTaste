@@ -104,8 +104,21 @@ void Map::SaveCollision()
             }
         }
     }
+    //printf();
 }
 
+void Map::printf()
+{
+    for ( int i = 0; i <= MapY; i++)
+    {
+        for ( int j = 0; j <= MapX; j++)
+        {
+            std ::cout << game_map.tile[i][j] << ' ';
+        }
+        std :: cout << std :: endl;
+    }
+
+}
 
 
 

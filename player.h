@@ -11,16 +11,25 @@ public:
     Player();
     ~Player() = default;
 
-    enum WalkType
+    enum Direction
     {
-        WALK_RIGHT = 0,
-        WALK_LEFT = 1,
+        RIGHT = 0,
+        LEFT = 1,
     };
-    bool LoadImg(std::string path, SDL_Renderer* screen);
-
-    void UpdateAnimationFrame(int total_frames, ImpTimer& timer, int frame_delay);
+    enum ActionState
+    {
+        IDLE,
+        RUNNING,
+        JUMPING,
+        ATTACKING,
+        FALLING,
+    };
+    bool LoadImg( SDL_Renderer* screen);
+    void Idle(int total_frames, ImpTimer& timer, int frame_delay);
+    void UpdateRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay);
+    void UpdateNoRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay);
     void Show(SDL_Renderer* des);
-    void HandleInput(SDL_Event events, SDL_Renderer* screen);
+    void HandleInput(SDL_Event event);
     void SetClips();
     void CheckToMap(MapObject& map_data);
     void CenterEntityOnMap(MapObject& visual_map);
@@ -30,7 +39,14 @@ public:
         mapposx = x;
         mapposy = y;
     }
+
+    void Jump();
 private:
+    bool init = 0;
+    SDL_Texture* idleTexture = nullptr;
+    SDL_Texture* runTexture = nullptr;
+    SDL_Texture* jumpTexture = nullptr;
+    SDL_Texture* attackTexture = nullptr;
 
         float x_val;
         float y_val;
@@ -42,16 +58,28 @@ private:
         int h_frame;
         int w_true;
         int h_true;
+        int w_hitbox;
+        int h_hitbox;
 
-        SDL_Rect run_clip[8];
+        SDL_Rect frame_clip[9];
+        SDL_Rect atk_clip[33];
+
         Input inp_type;
-        int frame;
+
+        int frame[10];
+        ActionState actionState;
         int status;
         bool on_ground;
 
         int mapposx;
         int mapposy;
-        ImpTimer frame_timer;
+
+        ImpTimer run_timer;
+        ImpTimer jump_timer;
+        ImpTimer idle_timer;
+        ImpTimer attack_timer;
+        ImpTimer jump_input_timer;
+        ImpTimer attack_input_timer;
         int frame_delay = 100;
 };
 
