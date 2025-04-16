@@ -55,11 +55,11 @@ void Map::render(SDL_Renderer* renderer) {
 
 
 
-            int x1 = visual_map.start_x / TileSize;
-            int x2 = (visual_map.start_x + game_w) / TileSize +1;
+            int x1 = visual_map.start_x / TileSize - 18;
+            int x2 = (visual_map.start_x + game_w) / TileSize + 18;
 
-            int y1 = visual_map.start_y / TileSize;
-            int y2 = (visual_map.start_y + game_h) / TileSize +1;
+            int y1 = visual_map.start_y / TileSize - 18;
+            int y2 = (visual_map.start_y + game_h) / TileSize + 18;
 
             for (int row = y1; row <= y2; ++row) {
                 for (int col = x1; col <= x2; ++col) {
@@ -113,7 +113,7 @@ void Map::printf()
     {
         for ( int j = 0; j <= MapX; j++)
         {
-            std ::cout << game_map.tile[i][j] << ' ';
+            std ::cout << visual_map.tile[i][j] << ' ';
         }
         std :: cout << std :: endl;
     }
@@ -122,7 +122,22 @@ void Map::printf()
 
 
 
+void Map::GetEnemyPos()
+{
+    auto* layer = mp.getLayer("enemy");
+    if (layer == nullptr) return;
+    int index = 0;
+    for (auto& obj : layer->getObjects()) {
+        int x = static_cast<int>(obj.getPosition().x);
+        int y = static_cast<int>(obj.getPosition().y);
+        spawn_e[index].posy = y;
+        spawn_e[index].posx = x;
 
+        //std :: cout << spawn_e[index].posx << ' ' << spawn_e[index].posy << '\n';
+        index++;
+    }
+    //printf();
+}
 
 
 

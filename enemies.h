@@ -1,0 +1,108 @@
+#ifndef ENEMIES_H
+#define ENEMIES_H
+
+#include "baseobj.h"
+#include "func.h"
+#include "timer.h"
+#include "map.h"
+
+#define OffsetY 25
+#define OffsetX 47
+#define MaxFallSpeed 4
+#define PlayerSpeed 0.5
+#define PlayerJump 2.5
+#define SL 4
+class Enemy : public baseobj
+{
+public:
+    Enemy();
+    ~Enemy() = default;
+
+    enum Direction
+    {
+        RIGHT = 1,
+        LEFT = -1,
+    };
+    enum ActionState
+    {
+        IDLE,
+        RUNNING,
+        ATTACKING,
+        FALLING,
+    };
+    bool LoadImg( SDL_Renderer* screen);
+    void UpdateRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay);
+    void UpdateNoRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay);
+    void Show(SDL_Renderer* des, EnemySpawnPoint spawn_e[]);
+    void SetClips();
+    void MoveToPlayer(float player_x, float player_y);
+    void CheckToMap(MapObject& map_data);
+    void DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x, float player_y);
+    void SetMapPos(const int x, const int y)
+    {
+        mapposx = x;
+        mapposy = y;
+    }
+    void SetPos(float x, float y) {
+        x_pos = x;
+        y_pos = y;
+    }
+    bool spawned = 0;
+private:
+
+    SDL_Texture* idleTexture = nullptr;
+    SDL_Texture* runTexture = nullptr;
+    SDL_Texture* jumpTexture = nullptr;
+    SDL_Texture* attackTexture = nullptr;
+
+    float x_val;
+    float y_val;
+
+    float x_pos;
+    float y_pos;
+
+    int w_frame;
+    int h_frame;
+    int w_true;
+    int h_true;
+    int w_hitbox;
+    int h_hitbox;
+    int mapposx;
+    int mapposy;
+
+    SDL_Rect frame_clip[9];
+    SDL_Rect atk_clip[33];
+
+    Input inp_type;
+
+    int frame[10];
+    ActionState actionState;
+    int status;
+    bool on_ground;
+    bool can_attack;
+
+        ImpTimer run_timer;
+        ImpTimer next_attack_timer;
+        ImpTimer current_attack_timer;
+        ImpTimer idle_timer;
+        ImpTimer attack_timer;
+        int frame_delay = 100;
+};
+class EnemyManager {
+private:
+    Enemy e[10];
+
+public:
+    void Init(SDL_Renderer* renderer, EnemySpawnPoint sp[]);
+    void Update(MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY);
+    void Render(SDL_Renderer* renderer, EnemySpawnPoint sp[]);
+};
+
+
+
+
+
+
+
+#endif
+

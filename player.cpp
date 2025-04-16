@@ -1,5 +1,5 @@
 #include "player.h"
-#include "map.h"
+
 
 Player::Player()
 {
@@ -72,8 +72,8 @@ void Player::SetClips() // cat frame
 
 void Player::Show(SDL_Renderer* des)
 {
-    std :: cout << inp_type.left <<  ' ' << inp_type.right <<  ' ' << inp_type.attack <<  ' ' << inp_type.jump <<  ' '
-    << actionState <<  ' ' << frame[actionState] <<  ' '<< std :: endl;
+//    std :: cout << inp_type.left <<  ' ' << inp_type.right <<  ' ' << inp_type.attack <<  ' ' << inp_type.jump <<  ' '
+//    << actionState <<  ' ' << frame[actionState] <<  ' '<< std :: endl;
     rect_.x = x_pos - mapposx;
     rect_.y = y_pos - 32 - mapposy ;
     if (actionState == ATTACKING) {
@@ -124,7 +124,6 @@ void Player::Show(SDL_Renderer* des)
     SDL_SetRenderDrawColor(des, 255, 0, 0, 255);
     SDL_RenderDrawRect(des, &renderQuad);
 }
-
 void Player::UpdateRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay)
 {
 
@@ -142,8 +141,6 @@ void Player::UpdateRepeatFrame(int total_frames, ImpTimer& timer, int frame_dela
 
 void Player::UpdateNoRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay)
 {
-    //std :: cout << 1;
-    //std :: cout << frame[actionState] << std :: endl;
     if (timer.GetTicks() >= 5)
     {
         frame[actionState]++;
@@ -279,10 +276,10 @@ void Player::CenterEntityOnMap(MapObject& visual_map)
     {
         visual_map.start_x = 0;
     }
-//    else if (visual_map.start_x + screen_w >=visual_map.max_x)
-//    {
-//        visual_map.start_x = visual_map.max_x - screen_w;
-//    }
+    else if (visual_map.start_x + game_w >= MapX * TileSize)
+    {
+        visual_map.start_x = MapX * TileSize - game_w;
+    }
 
     visual_map.start_y = y_pos - (game_h/2);
       if (visual_map.start_y < 0)
@@ -331,7 +328,7 @@ void Player::CheckToMap(MapObject& map_data)
     {
         if (x_val > 0) {
         if (( map_data.tile[y1][x2] != BLANK_TILE && map_data.tile[y1][x2] != SLOPE_TILE_DOWN)
-            || (map_data.tile[y2][x2] != BLANK_TILE && map_data.tile[y2][x2] != BLANK_TILE))
+            || (map_data.tile[y2][x2] != BLANK_TILE && map_data.tile[y2][x2] != SLOPE_TILE_DOWN))
             {
                 x_pos = x2 * TileSize;
                 x_pos -= w_true;
@@ -340,14 +337,14 @@ void Player::CheckToMap(MapObject& map_data)
         }
     else
         if (x_val < 0){
-        if (( map_data.tile[y1][x2] != BLANK_TILE && map_data.tile[y1][x2] != SLOPE_TILE_DOWN)
-            || (map_data.tile[y2][x2] != BLANK_TILE && map_data.tile[y2][x2] != BLANK_TILE))
+        if (( map_data.tile[y1][x1] != BLANK_TILE && map_data.tile[y1][x2] != SLOPE_TILE_DOWN)
+            || (map_data.tile[y2][x1] != BLANK_TILE && map_data.tile[y2][x2] != SLOPE_TILE_DOWN))
             {
-                x_pos = (x1 + 1) * TileSize ;
+                x_pos = (x1 + 1) * TileSize +1 ;
                 x_val = 0;
             }
         }
-        //if ( map_data.tile[y2][x1] == SLOPE_TILE_DOWN) y_pos -= 10;
+
     }
 
     // Y
@@ -411,7 +408,7 @@ void Player::CheckToMap(MapObject& map_data)
     }
     else if ( x_pos + w_true > MapX * TileSize)
     {
-        x_pos = MapX * TileSize - 1 - w_frame;
+        x_pos = MapX * TileSize - 1 - w_true;
     }
 }
 

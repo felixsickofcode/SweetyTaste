@@ -34,6 +34,8 @@
 		</Compiler>
 		<Unit filename="baseobj.cpp" />
 		<Unit filename="baseobj.h" />
+		<Unit filename="enemies.cpp" />
+		<Unit filename="enemies.h" />
 		<Unit filename="func.cpp" />
 		<Unit filename="func.h" />
 		<Unit filename="game.cpp" />

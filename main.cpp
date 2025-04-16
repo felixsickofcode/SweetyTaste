@@ -2,6 +2,7 @@
 #include "func.h"
 #include "baseobj.h"
 #include "player.h"
+#include "enemies.h"
 #include "timer.h"
 
 bool inidata()
@@ -55,10 +56,13 @@ int main(int argc, char* argv[])
     }
     mp.loadTextures(renderer);
     mp.SaveCollision();
+    mp.GetEnemyPos();
     //PLAYER
     Player player;
     player.LoadImg(renderer);
     player.SetClips();
+    EnemyManager enemyManager;
+    enemyManager.Init(renderer, mp.spawn_e);
     //GAMELOOP
 
     bool isRunning = true;
@@ -80,8 +84,12 @@ int main(int argc, char* argv[])
         mp.render(renderer);
         player.Show(renderer);
         player.SetMapPos(mp.visual_map.start_x, mp.visual_map.start_y);
+        //enemy.SetMapPos(mp.visual_map.start_x, mp.visual_map.start_y);
         player.DoPlayer(mp.game_map, mp.visual_map);
-
+        //enemy.DoPlayer(mp.game_map, mp.visual_map);
+       // enemy.Show(renderer, player.GetX(), player.GetY(), mp.spawn_e);
+        enemyManager.Update(mp.game_map, mp.visual_map, mp.visual_map.start_x, mp.visual_map.start_y, player.GetX(), player.GetY() );
+        enemyManager.Render(renderer,  mp.spawn_e);
         //-----
         SDL_RenderPresent(renderer);
 

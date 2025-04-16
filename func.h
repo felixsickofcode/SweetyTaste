@@ -17,12 +17,6 @@
 #define MapX 200
 #define MapY 12
 
-#define OffsetY 17
-#define OffsetX 47
-#define MaxFallSpeed 2
-#define PlayerSpeed 2.5
-#define PlayerJump 2.5
-
 static SDL_Window* window = NULL ;
 static SDL_Renderer* renderer = NULL;
 static SDL_Event event;
@@ -31,13 +25,19 @@ const int game_w = TileSize * 16 ;
 const int game_h = TileSize * 9;
 const int fps = 60;
 
+typedef struct EnemySpawnPoint {
+   int posx;
+   int posy;
+   bool spawned = false;
+};
+
 typedef struct Input
 {
     int left = 0;
     int right = 0;
     int attack = 0;
     int jump = 0;
-} Input;
+} ;
 
 typedef struct MapObject
 {

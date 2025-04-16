@@ -16,7 +16,7 @@ public:
     Map(const std::string& filename);
     MapObject game_map;
     MapObject visual_map;
-
+    EnemySpawnPoint spawn_e[20];
     bool load();
 
     //void loadTilesetsInfo();
@@ -25,7 +25,9 @@ public:
     void loadTextures(SDL_Renderer* renderer);
     void render(SDL_Renderer* renderer);
     void SaveCollision();
+    void GetEnemyPos();
     void printf();
+
 private:
     Tilebrick tileTextures[250];
     std::string mapFile;
