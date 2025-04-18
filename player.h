@@ -4,11 +4,13 @@
 #include "baseobj.h"
 #include "func.h"
 #include "timer.h"
+#include "player.h"
+
 
 #define OffsetY 17
 #define OffsetX 47
 #define MaxFallSpeed 4
-#define PlayerSpeed 4.5
+#define PlayerSpeed 3.1
 #define PlayerJump 2.5
 class Player : public baseobj
 {
@@ -28,8 +30,10 @@ public:
         JUMPING,
         ATTACKING,
         FALLING,
+        ATTACKING2,
     };
     bool LoadImg( SDL_Renderer* screen);
+    void Interact();
     void UpdateRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay);
     void UpdateNoRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay);
     void Show(SDL_Renderer* des);
@@ -38,6 +42,7 @@ public:
     void CheckToMap(MapObject& map_data);
     void CenterEntityOnMap(MapObject& visual_map);
     void DoPlayer(MapObject& map_data, MapObject& visual_map);
+    void DrawHP(SDL_Renderer* ren, int cur_hp);
     void SetMapPos(const int x, const int y)
     {
         mapposx = x;
@@ -45,13 +50,27 @@ public:
     }
     float GetX() const { return x_pos; }
     float GetY() const { return y_pos; }
-
+    bool IsDead() const { return hp < 0; }
+    int hp;
+    int GetActionState() const { return actionState; }
+    int GetFrame() const { return frame[3]; }
+    SDL_Rect GetATKRect() const { return ATK_Rect;}
+    bool damaged;
 private:
+    int attack_phase = 0;
+    bool is_attacking = false;
+
+    SDL_Rect ATK_Rect;
     bool init = 0;
     SDL_Texture* idleTexture = nullptr;
     SDL_Texture* runTexture = nullptr;
     SDL_Texture* jumpTexture = nullptr;
     SDL_Texture* attackTexture = nullptr;
+    SDL_Texture* tex_bg = nullptr;
+    SDL_Texture* tex_hp = nullptr;
+    SDL_Texture* tex_bar= nullptr;
+
+
 
     float x_val;
     float y_val;
@@ -65,9 +84,12 @@ private:
     int h_true;
     int w_hitbox;
     int h_hitbox;
+    int direct;
+
+    bool first_strike;
 
     SDL_Rect frame_clip[9];
-    SDL_Rect atk_clip[33];
+    SDL_Rect atk_clip[40];
 
     Input inp_type;
     ActionState actionState;
@@ -81,10 +103,12 @@ private:
     int mapposy;
 
     ImpTimer run_timer;
+    ImpTimer spike_timer;
     ImpTimer jump_timer;
     ImpTimer idle_timer;
     ImpTimer attack_timer;
     ImpTimer jump_input_timer;
+    ImpTimer combo_timer;
     ImpTimer attack_input_timer;
     int frame_delay = 100;
 };

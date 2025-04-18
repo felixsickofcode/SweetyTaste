@@ -12,6 +12,7 @@ Enemy::Enemy()
     h_frame = 0;
     w_true = 0;
     h_true = 0;
+    e_hp = 39;
     on_ground = false;
     spawned = false;
     can_attack = true;
@@ -26,6 +27,9 @@ bool Enemy::LoadImg(SDL_Renderer* renderer)
     idleTexture = LoadTexture("asset/Sekeleton/⁯Idle.png", renderer);
     runTexture = LoadTexture("asset/Sekeleton/Run.png", renderer);
     attackTexture = LoadTexture("asset/Sekeleton/Attack.png", renderer);
+    hurtTexture = LoadTexture("asset/Sekeleton/Hurt.png", renderer);
+    dieTexture = LoadTexture("asset/Sekeleton/Die.png", renderer);
+
 
     bool ret = baseobj::LoadImg("asset/Sekeleton/Run.png", renderer);
 
@@ -40,7 +44,7 @@ bool Enemy::LoadImg(SDL_Renderer* renderer)
 }
 void Enemy::SetClips() // cat frame
 {
-    std:: cout << w_frame <<' ';
+    //std:: cout << w_frame <<' ';
     if (w_frame > 0 && h_frame > 0)
     {
         int index = 0;
@@ -56,11 +60,17 @@ void Enemy::SetClips() // cat frame
         for (int j = 0; j <= 4; ++j) // hàng trước
         {
             for (int i = 0; i <= 4; ++i) // cột sau
-                {
+            {
                 atk_clip[index].x = i * 146 + 16 ;
                 atk_clip[index].y = j * h_frame + OffsetY - 10;
                 atk_clip[index].w = 100 ;
                 atk_clip[index].h = h_true +10;
+
+                die_clip[index].x = i * 118;
+                die_clip[index].y = j * 64;
+                die_clip[index].w = 118 ;
+                die_clip[index].h = 64;
+
                 ++index;
             }
         }
@@ -85,36 +95,62 @@ void Enemy::Show(SDL_Renderer* des, EnemySpawnPoint spawn_e[])
     if (status == RIGHT)
     {
         flip = SDL_FLIP_HORIZONTAL;
+        adjusthitbox = 0;
     }
     else
     {
         flip = SDL_FLIP_NONE;
+        if ( actionState == ATTACKING) adjusthitbox = 30;
     }
+    HITBOX = {rect_.x + adjusthitbox, rect_.y , w_true, h_true};
     SDL_Rect renderQuad = {rect_.x, rect_.y , w_hitbox, h_hitbox};
     SDL_Rect* current_clip = &frame_clip[frame[actionState]];
     SDL_Texture* currentTexture = nullptr;
-    if (actionState != ATTACKING) {
-        if (actionState == RUNNING) {
-            currentTexture = runTexture;
-        }
-        else  currentTexture = idleTexture;
-        current_clip = &frame_clip[frame[actionState]];
-    } else
+    if ( e_hp <= 0)
     {
-        current_clip = &atk_clip[frame[actionState]];
-        currentTexture = attackTexture;
+        current_clip = &die_clip[frame[actionState]];
+        renderQuad = {rect_.x, rect_.y - 15 , 118, 64};
+        currentTexture = dieTexture;
+        SDL_RenderCopyEx(des, currentTexture, current_clip,& renderQuad, 0.0, nullptr, flip);
     }
-    SDL_RenderCopyEx(des, currentTexture, current_clip,& renderQuad, 0.0, nullptr, flip);
+    else {
+        if (actionState != ATTACKING) {
+            if (actionState == RUNNING) {
+                currentTexture = runTexture;
+            }
+            else
+            {
+                currentTexture = idleTexture;
+                current_clip = &frame_clip[frame[actionState]];
+            }
+        }
+        else
+        {
+            current_clip = &atk_clip[frame[actionState]];
+            currentTexture = attackTexture;
 
+        }
+
+        if ( hasTakenDamage )  SDL_SetTextureColorMod(currentTexture, 255, 0, 0);
+        else
+        {
+            SDL_SetTextureColorMod(currentTexture, 255, 255, 255);
+        }
+        SDL_RenderCopyEx(des, currentTexture, current_clip,& renderQuad, 0.0, nullptr, flip);
+    }
     SDL_SetRenderDrawColor(des, 255, 0, 0, 255);
-    SDL_RenderDrawRect(des, &renderQuad);
+    //SDL_RenderDrawRect(des, &renderQuad);
+    SDL_SetRenderDrawColor(des, 255, 0, 255, 255);
+    //SDL_RenderDrawRect(des, &HITBOX);
 }
 void Enemy::MoveToPlayer(float player_x, float player_y) {
     if (x_pos + 50 < player_x + 15) {
         status = RIGHT;
+        knockback_dir = -1;
     }
     else if (x_pos + 50 > player_x + 15) {
         status = LEFT;
+        knockback_dir = 1;
     }
     else x_val = 0;
     actionState = RUNNING;
@@ -132,29 +168,85 @@ void Enemy::UpdateRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay
         timer.Start();
     }
 }
-void Enemy::UpdateNoRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay)
+void Enemy::Die(int total_frames, ImpTimer& timer, int frame_delay)
 {
-    if (timer.GetTicks() >= 5)
+    if (timer.GetTicks() >= frame_delay)
     {
         frame[actionState]++;
         if (frame[actionState] >= total_frames)
         {
+            spawned = true;
             frame[actionState] = total_frames  ;
         }
         timer.Start();
     }
 }
-void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x, float player_y)
+ void Enemy::DealDamage(Player& player)
+ {
+     if ( actionState == ATTACKING && frame[actionState] == 4 && !spawned)
+     {
+         player.hp -= 1;
+         player.damaged = true;
+     }
+     else
+     {
+         player.damaged = false;
+     }
+
+ }
+void Enemy::GetDamage(Player& player)
 {
+    if (player.GetActionState() == 3 && ( player.GetFrame() == 4 ||player.GetFrame() == 8 ||  player.GetFrame() == 12 ||  player.GetFrame() == 18 ))
+    {
+        if (!hasTakenDamage)
+        {
+            e_hp -= 10;
+            hasTakenDamage = true;
+            hurt_timer.Start();
+            is_knockback = true;
+        }
+    }
+    else
+    {
+        hasTakenDamage = false;
+    }
+}
+
+void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x, float player_y, Player& player)
+{
+
+    if (e_hp <= 0)
+    {
+        actionState = DIE;
+        Die(22, die_timer, frame_delay);
+        return;
+    }
+    else die_timer.Start();
+    if (is_knockback)
+    {
+        x_pos += knockback_dir * knockback_speed;
+        knockback_distance -= knockback_speed;
+        if (knockback_distance <= 0) {
+            is_knockback = false;
+            knockback_distance = 20; // reset
+        }
+        return;
+    }
+    //std :: cout << CheckCollision(HITBOX, player.GetATKRect());
+    if ( CheckCollision(HITBOX, player.GetATKRect())) GetDamage(player);
+
+
     y_val += 1;
 
     float dx = x_pos - player_x +35;
     float dy = y_pos - player_y ;
     float distance = sqrt(dx * dx + dy * dy);
-    std :: cout << actionState << ' ' << frame[actionState] << '\n';
+    //std :: cout << actionState << ' ' << frame[actionState] << '\n';
     if ( y_val >= MaxFallSpeed ) y_val = MaxFallSpeed;
     MoveToPlayer( player_x, player_y);
-    if ( distance < 55)  actionState = ActionState::ATTACKING, x_val = 0 ;
+
+    if ( distance < 40 )  actionState = ActionState::ATTACKING, x_val = 0 ;
+
     else if ( distance < 200) x_val = PlayerSpeed * (status) ;
     else
     {
@@ -170,6 +262,7 @@ void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x,
     {
         run_timer.Start();
     }
+
     if ( actionState == ActionState::IDLE)
     {
         UpdateRepeatFrame(7, idle_timer, frame_delay);
@@ -179,6 +272,14 @@ void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x,
         idle_timer.Start();
     }
 
+    if ( actionState == ActionState::HURT   )
+    {
+        UpdateRepeatFrame(2, idle_timer, frame_delay);
+    }
+    else
+    {
+        idle_timer.Start();
+    }
     if (next_attack_timer.GetTicks() >= 1000) {
         current_attack_timer.Start();
         can_attack = true;
@@ -292,24 +393,25 @@ void Enemy::CheckToMap(MapObject& map_data)
 
 
 
-
 void EnemyManager::Init(SDL_Renderer* renderer, EnemySpawnPoint spawn_e[]) {
-    for (int i  = 0; i  <= SL; i++) {
+    for (int i  =4; i  <= SL; i++) {
         e[i].LoadImg(renderer);
         e[i].SetClips();
         e[i].SetPos( spawn_e[i].posx -30 , spawn_e[i].posy - 32);
     }
 }
 
-void EnemyManager::Update(MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY) {
-    for (int i  = 0; i  <= SL; i++) {
-        e[i].DoPlayer(map_data, visual_map, playerX, playerY);
+void EnemyManager::Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY) {
+    for (int i  = 4; i  <= SL; i++) {
+        if ( !e[i].spawned ) e[i].DoPlayer(map_data, visual_map, playerX, playerY, player);
         e[i].SetMapPos(X, Y);
+        e[i].DealDamage(player);
+        //std :: cout << e[4].e_hp << '\n';
     }
 }
 
 void EnemyManager::Render(SDL_Renderer* renderer, EnemySpawnPoint sp[]) {
-    for (int i  = 0; i  <= SL; i++) {
+    for (int i  = 4; i  <= SL; i++) {
         if ( !e[i].spawned ) e[i].Show(renderer, sp);
     }
 }

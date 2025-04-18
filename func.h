@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -15,7 +16,7 @@
 #define TileSize 32
 #define Scale 2.5
 #define MapX 200
-#define MapY 12
+#define MapY 20
 
 static SDL_Window* window = NULL ;
 static SDL_Renderer* renderer = NULL;

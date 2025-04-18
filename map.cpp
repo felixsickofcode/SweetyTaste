@@ -67,7 +67,7 @@ void Map::render(SDL_Renderer* renderer) {
                     tson::Tile* tile = layer.getTileData(col, row);
                     if (tile != nullptr) {
                         int tileId = tile->getId();
-                        if (tileId == 0 || tileId >= 250) continue;
+                        if ( tileId >= 250) continue;
 
                         tson::Vector2i tileSizeInImage = tile->getImageSize();
 
@@ -94,11 +94,12 @@ void Map::SaveCollision()
             for (const auto& [pos, tile] : layer.getTileData()) {
                 if (tile != nullptr) {
                     int tileId = tile->getId();
-                    if (tileId == 0 || tileId >= 250) continue;
+                    if ( tileId >= 250) continue;
                     tson::Vector2i tileSize = tile->getImageSize();
                     int X =  std::get<0>(pos);
                     int Y =  std::get<1>(pos);
                         game_map.tile[Y][X] = tileId;
+                    if ( tileId == 141) std::cout << X << ' ' << Y <<'\n';
 
                 }
             }
@@ -113,7 +114,7 @@ void Map::printf()
     {
         for ( int j = 0; j <= MapX; j++)
         {
-            std ::cout << visual_map.tile[i][j] << ' ';
+            std ::cout << game_map.tile[i][j] << ' ';
         }
         std :: cout << std :: endl;
     }

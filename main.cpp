@@ -39,11 +39,8 @@ void close()
     SDL_Quit();
 }
 
-int main(int argc, char* argv[])
+void StartLVL1(ImpTimer& Timer)
 {
-    ImpTimer Timer;
-    if (!inidata()) return -1;
-    //MAP
     Map mp("map.json");
     if (!mp.load())
     {
@@ -52,18 +49,17 @@ int main(int argc, char* argv[])
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         SDL_Quit();
-        return 1;
+        return ;
     }
     mp.loadTextures(renderer);
     mp.SaveCollision();
     mp.GetEnemyPos();
-    //PLAYER
+
     Player player;
     player.LoadImg(renderer);
     player.SetClips();
     EnemyManager enemyManager;
     enemyManager.Init(renderer, mp.spawn_e);
-    //GAMELOOP
 
     bool isRunning = true;
     while (isRunning)
@@ -80,16 +76,20 @@ int main(int argc, char* argv[])
 
         SDL_RenderClear(renderer);
         //-----
-
         mp.render(renderer);
-        player.Show(renderer);
-        player.SetMapPos(mp.visual_map.start_x, mp.visual_map.start_y);
-        //enemy.SetMapPos(mp.visual_map.start_x, mp.visual_map.start_y);
-        player.DoPlayer(mp.game_map, mp.visual_map);
-        //enemy.DoPlayer(mp.game_map, mp.visual_map);
-       // enemy.Show(renderer, player.GetX(), player.GetY(), mp.spawn_e);
-        enemyManager.Update(mp.game_map, mp.visual_map, mp.visual_map.start_x, mp.visual_map.start_y, player.GetX(), player.GetY() );
+        enemyManager.Update(player, mp.game_map, mp.visual_map, mp.visual_map.start_x, mp.visual_map.start_y, player.GetX(), player.GetY() );
         enemyManager.Render(renderer,  mp.spawn_e);
+        player.SetMapPos(mp.visual_map.start_x, mp.visual_map.start_y);
+        player.Show(renderer);
+        player.DoPlayer(mp.game_map, mp.visual_map);
+
+
+        if (player.IsDead())
+        {
+            SDL_Delay(1000);
+            StartLVL1(Timer);
+            return;
+        }
         //-----
         SDL_RenderPresent(renderer);
 
@@ -100,11 +100,16 @@ int main(int argc, char* argv[])
             int delay_time = time_one_frame - true_time;
             if ( delay_time >= 0)
                 SDL_Delay(delay_time);
-
         }
-
     }
-
     close();
+}
+int main(int argc, char* argv[])
+{
+    if (!inidata()) return -1;
+
+    ImpTimer Timer;
+
+    StartLVL1(Timer);
     return 0;
 }

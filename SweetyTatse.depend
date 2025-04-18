@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1744822085 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
+1744991551 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
 	"player.h"
 
-1744814316 c:\users\admin\onedrive\desktop\sweetytatse\player.h
+1744991568 c:\users\admin\onedrive\desktop\sweetytatse\player.h
 	"baseobj.h"
 	"func.h"
 	"timer.h"
+	"player.h"
 
 1744285628 source:c:\users\admin\onedrive\desktop\sweetytatse\game.cpp
 
@@ -13,7 +14,7 @@
 	<SDL.h>
 	"player.h"
 
-1744817277 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+1744985118 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
 	"map.h"
 	"func.h"
 	"baseobj.h"
@@ -288,12 +289,13 @@
 	"tileson.hpp"
 	"baseobj.h"
 
-1744819894 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
+1744866059 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
 	"Map.h"
 
-1744809910 c:\users\admin\onedrive\desktop\sweetytatse\func.h
+1744884959 c:\users\admin\onedrive\desktop\sweetytatse\func.h
 	<SDL.h>
 	<SDL_image.h>
+	<SDL_ttf.h>
 	<iostream>
 	<string>
 	<vector>
@@ -307,7 +309,7 @@
 1744610607 source:c:\users\admin\onedrive\desktop\sweetytatse\func.cpp
 	"func.h"
 
-1744813872 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
+1744972082 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
 	"func.h"
 
 1744558574 source:c:\users\admin\onedrive\desktop\sweetytatse\timer.cpp
@@ -316,12 +318,13 @@
 1744638998 c:\users\admin\onedrive\desktop\sweetytatse\timer.h
 	"func.h"
 
-1744824506 source:c:\users\admin\onedrive\desktop\sweetytatse\enemies.cpp
+1744991832 source:c:\users\admin\onedrive\desktop\sweetytatse\enemies.cpp
 	"enemies.h"
 
-1744823874 c:\users\admin\onedrive\desktop\sweetytatse\enemies.h
+1744990656 c:\users\admin\onedrive\desktop\sweetytatse\enemies.h
 	"baseobj.h"
 	"func.h"
 	"timer.h"
-	"map.h"
+	"enemies.h"
+	"player.h"
 
