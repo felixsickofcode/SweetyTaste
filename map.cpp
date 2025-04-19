@@ -11,7 +11,7 @@ bool Map::load() {
         mp = std::move(*result);
         std::cout << "Map loaded successfully!\n";
     return true;
-}
+    }
     else {
         std::cerr << "Failed to load map: " << mapFile << "\n";
         return false;
@@ -55,11 +55,11 @@ void Map::render(SDL_Renderer* renderer) {
 
 
 
-            int x1 = visual_map.start_x / TileSize - 18;
-            int x2 = (visual_map.start_x + game_w) / TileSize + 18;
+            int x1 = visual_map.start_x / TileSize - 20;
+            int x2 = (visual_map.start_x + game_w) / TileSize + 20;
 
-            int y1 = visual_map.start_y / TileSize - 18;
-            int y2 = (visual_map.start_y + game_h) / TileSize + 18;
+            int y1 = visual_map.start_y / TileSize - 20;
+            int y2 = (visual_map.start_y + game_h) / TileSize + 20;
 
             for (int row = y1; row <= y2; ++row) {
                 for (int col = x1; col <= x2; ++col) {

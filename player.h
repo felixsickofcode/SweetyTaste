@@ -17,7 +17,7 @@ class Player : public baseobj
 public:
     Player();
     ~Player() = default;
-
+    void Reset();
     enum Direction
     {
         RIGHT = 0,
@@ -56,7 +56,9 @@ public:
     int GetFrame() const { return frame[3]; }
     SDL_Rect GetATKRect() const { return ATK_Rect;}
     bool damaged;
+    bool is_win;
 private:
+
     int attack_phase = 0;
     bool is_attacking = false;
 
@@ -108,7 +110,7 @@ private:
     ImpTimer idle_timer;
     ImpTimer attack_timer;
     ImpTimer jump_input_timer;
-    ImpTimer combo_timer;
+    ImpTimer hurt_timer;
     ImpTimer attack_input_timer;
     int frame_delay = 100;
 };

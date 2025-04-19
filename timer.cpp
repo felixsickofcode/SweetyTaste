@@ -54,7 +54,7 @@ int ImpTimer::GetTicks()
         }
         else
         {
-            return SDL_GetTicks() - start_tick;
+            return  SDL_GetTicks() - start_tick;
         }
     }
 }

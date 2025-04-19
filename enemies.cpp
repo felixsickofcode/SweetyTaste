@@ -3,6 +3,7 @@
 
 Enemy::Enemy()
 {
+    hasTakenDamage = false;
     x_val = 0;
     y_val = 0;
     frame[0] = frame[1] = frame[2] = frame[3] = frame[4] = frame[5] =0;
@@ -20,7 +21,26 @@ Enemy::Enemy()
     current_attack_timer.Start();
     idle_timer.Start();
 }
-
+void Enemy::Reset()
+{
+    hasTakenDamage = false;
+    x_val = 0;
+    y_val = 0;
+    frame[0] = frame[1] = frame[2] = frame[3] = frame[4] = frame[5] =0;
+    x_pos = 0;
+    y_pos = 64*2;
+    w_frame = 0;
+    h_frame = 0;
+    w_true = 0;
+    h_true = 0;
+    e_hp = 39;
+    on_ground = false;
+    spawned = false;
+    can_attack = true;
+    next_attack_timer.Start();
+    current_attack_timer.Start();
+    idle_timer.Start();
+}
 bool Enemy::LoadImg(SDL_Renderer* renderer)
 {
 
@@ -115,6 +135,7 @@ void Enemy::Show(SDL_Renderer* des, EnemySpawnPoint spawn_e[])
     }
     else {
         if (actionState != ATTACKING) {
+
             if (actionState == RUNNING) {
                 currentTexture = runTexture;
             }
@@ -126,21 +147,26 @@ void Enemy::Show(SDL_Renderer* des, EnemySpawnPoint spawn_e[])
         }
         else
         {
+
             current_clip = &atk_clip[frame[actionState]];
             currentTexture = attackTexture;
 
-        }
 
-        if ( hasTakenDamage )  SDL_SetTextureColorMod(currentTexture, 255, 0, 0);
+        }
+        //std :: cout << frame[actionState] << '\n';
+        if ( hasTakenDamage )
+        {
+            SDL_SetTextureColorMod(currentTexture, 255, 0, 0);
+        }
         else
         {
             SDL_SetTextureColorMod(currentTexture, 255, 255, 255);
         }
         SDL_RenderCopyEx(des, currentTexture, current_clip,& renderQuad, 0.0, nullptr, flip);
     }
-    SDL_SetRenderDrawColor(des, 255, 0, 0, 255);
+    //SDL_SetRenderDrawColor(des, 255, 0, 0, 255);
     //SDL_RenderDrawRect(des, &renderQuad);
-    SDL_SetRenderDrawColor(des, 255, 0, 255, 255);
+    //SDL_SetRenderDrawColor(des, 255, 0, 255, 255);
     //SDL_RenderDrawRect(des, &HITBOX);
 }
 void Enemy::MoveToPlayer(float player_x, float player_y) {
@@ -175,8 +201,9 @@ void Enemy::Die(int total_frames, ImpTimer& timer, int frame_delay)
         frame[actionState]++;
         if (frame[actionState] >= total_frames)
         {
-            spawned = true;
             frame[actionState] = total_frames  ;
+            spawned = true;
+
         }
         timer.Start();
     }
@@ -187,10 +214,6 @@ void Enemy::Die(int total_frames, ImpTimer& timer, int frame_delay)
      {
          player.hp -= 1;
          player.damaged = true;
-     }
-     else
-     {
-         player.damaged = false;
      }
 
  }
@@ -274,12 +297,13 @@ void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x,
 
     if ( actionState == ActionState::HURT   )
     {
-        UpdateRepeatFrame(2, idle_timer, frame_delay);
+        UpdateRepeatFrame(2, hurt_timer, frame_delay);
     }
     else
     {
-        idle_timer.Start();
+        hurt_timer.Start();
     }
+
     if (next_attack_timer.GetTicks() >= 1000) {
         current_attack_timer.Start();
         can_attack = true;
@@ -393,16 +417,17 @@ void Enemy::CheckToMap(MapObject& map_data)
 
 
 
-void EnemyManager::Init(SDL_Renderer* renderer, EnemySpawnPoint spawn_e[]) {
-    for (int i  =4; i  <= SL; i++) {
+void EnemyManager::Init(SDL_Renderer* renderer, EnemySpawnPoint spawn_e[], int SL) {
+    for (int i  =0; i < SL; i++) {
+        e[i].Reset();
         e[i].LoadImg(renderer);
         e[i].SetClips();
         e[i].SetPos( spawn_e[i].posx -30 , spawn_e[i].posy - 32);
     }
 }
 
-void EnemyManager::Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY) {
-    for (int i  = 4; i  <= SL; i++) {
+void EnemyManager::Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY, int SL) {
+    for (int i  = 0; i  < SL; i++) {
         if ( !e[i].spawned ) e[i].DoPlayer(map_data, visual_map, playerX, playerY, player);
         e[i].SetMapPos(X, Y);
         e[i].DealDamage(player);
@@ -410,8 +435,8 @@ void EnemyManager::Update(Player& player, MapObject& map_data, MapObject& visual
     }
 }
 
-void EnemyManager::Render(SDL_Renderer* renderer, EnemySpawnPoint sp[]) {
-    for (int i  = 4; i  <= SL; i++) {
+void EnemyManager::Render(SDL_Renderer* renderer, EnemySpawnPoint sp[], int SL) {
+    for (int i  = 0; i  < SL; i++) {
         if ( !e[i].spawned ) e[i].Show(renderer, sp);
     }
 }

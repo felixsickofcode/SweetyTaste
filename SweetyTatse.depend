@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1744991551 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
+1745094247 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
 	"player.h"
 
-1744991568 c:\users\admin\onedrive\desktop\sweetytatse\player.h
+1745086752 c:\users\admin\onedrive\desktop\sweetytatse\player.h
 	"baseobj.h"
 	"func.h"
 	"timer.h"
@@ -14,13 +14,15 @@
 	<SDL.h>
 	"player.h"
 
-1744985118 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+1745093290 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
 	"map.h"
 	"func.h"
 	"baseobj.h"
 	"player.h"
 	"enemies.h"
 	"timer.h"
+	"menu.h"
+	"submenu.h"
 
 1744107483 source:d:\tmxparser\src\miniz.c
 	<stdlib.h>
@@ -289,10 +291,10 @@
 	"tileson.hpp"
 	"baseobj.h"
 
-1744866059 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
+1745093312 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
 	"Map.h"
 
-1744884959 c:\users\admin\onedrive\desktop\sweetytatse\func.h
+1745092707 c:\users\admin\onedrive\desktop\sweetytatse\func.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
@@ -312,19 +314,31 @@
 1744972082 c:\users\admin\onedrive\desktop\sweetytatse\baseobj.h
 	"func.h"
 
-1744558574 source:c:\users\admin\onedrive\desktop\sweetytatse\timer.cpp
+1745074842 source:c:\users\admin\onedrive\desktop\sweetytatse\timer.cpp
 	"timer.h"
 
 1744638998 c:\users\admin\onedrive\desktop\sweetytatse\timer.h
 	"func.h"
 
-1744991832 source:c:\users\admin\onedrive\desktop\sweetytatse\enemies.cpp
+1745094203 source:c:\users\admin\onedrive\desktop\sweetytatse\enemies.cpp
 	"enemies.h"
 
-1744990656 c:\users\admin\onedrive\desktop\sweetytatse\enemies.h
+1745092934 c:\users\admin\onedrive\desktop\sweetytatse\enemies.h
 	"baseobj.h"
 	"func.h"
 	"timer.h"
 	"enemies.h"
 	"player.h"
+
+1745086446 source:c:\users\admin\onedrive\desktop\sweetytatse\menu.cpp
+	"menu.h"
+
+1745085969 c:\users\admin\onedrive\desktop\sweetytatse\menu.h
+	"func.h"
+
+1745087551 source:c:\users\admin\onedrive\desktop\sweetytatse\submenu.cpp
+	"submenu.h"
+
+1745087116 c:\users\admin\onedrive\desktop\sweetytatse\submenu.h
+	"func.h"
 

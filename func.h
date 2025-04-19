@@ -26,6 +26,8 @@ const int game_w = TileSize * 16 ;
 const int game_h = TileSize * 9;
 const int fps = 60;
 
+
+
 typedef struct EnemySpawnPoint {
    int posx;
    int posy;

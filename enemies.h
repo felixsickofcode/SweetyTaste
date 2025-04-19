@@ -12,14 +12,13 @@
 #define MaxFallSpeed 4
 #define PlayerSpeed 0.5
 #define PlayerJump 2.5
-#define SL 4
 
 class Enemy : public baseobj
 {
 public:
     Enemy();
     ~Enemy() = default;
-
+    void Reset();
     enum Direction
     {
         RIGHT = 1,
@@ -114,9 +113,10 @@ private:
 
 public:
     Enemy& GetEnemy(int i) { return e[i]; }
-    void Init(SDL_Renderer* renderer, EnemySpawnPoint sp[]);
-    void Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY);
-    void Render(SDL_Renderer* renderer, EnemySpawnPoint sp[]);
+
+    void Init(SDL_Renderer* renderer, EnemySpawnPoint sp[], int SL);
+    void Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY, int SL);
+    void Render(SDL_Renderer* renderer, EnemySpawnPoint sp[], int SL);
 };
 
 

@@ -19,6 +19,27 @@ Player::Player()
     mapposx = 0;
     mapposy = 0;
     attack_input_timer.Start();
+    is_win = false;
+}
+void Player::Reset()
+{
+    x_val = 0;
+    y_val = 0;
+    frame[0] = frame[1] = frame[2] = frame[3] = frame[4] = frame[5] =0;
+    x_pos = 50;
+    y_pos = 64*3;
+    w_frame = 0;
+    h_frame = 0;
+    w_true = 0;
+    h_true = 0;
+    status = -1;
+    inp_type = {0, 0, 0, 0};
+    hp = 100;
+    on_ground = false;
+    mapposx = 0;
+    mapposy = 0;
+    attack_input_timer.Start();
+    is_win = false;
 }
 bool Player::LoadImg(SDL_Renderer* renderer)
 {
@@ -129,10 +150,16 @@ void Player::Show(SDL_Renderer* des)
         }
 
         current_clip = &frame_clip[frame[actionState]];
-        if ( damaged )  SDL_SetTextureColorMod(currentTexture, 255, 0, 0);
+        if ( damaged )
+        {
+            SDL_SetTextureColorMod(currentTexture, 255, 0, 0);
+            if ( hurt_timer.GetTicks() >= 200)
+                damaged = false;
+        }
         else
         {
             SDL_SetTextureColorMod(currentTexture, 255, 255, 255);
+            hurt_timer.Start();
         }
         SDL_RenderCopyEx(des, currentTexture, current_clip,& renderQuad, 0.0, nullptr, flip);
     } else
@@ -140,17 +167,19 @@ void Player::Show(SDL_Renderer* des)
         currentTexture = attackTexture;
         current_clip = &atk_clip[frame[actionState] + direct];
         renderQuad = {rect_.x, rect_.y , w_frame, h_true};
-        if ( damaged )  SDL_SetTextureColorMod(currentTexture, 255, 0, 0);
+        if ( damaged )
+        {
+            SDL_SetTextureColorMod(currentTexture, 255, 0, 0);
+            if ( hurt_timer.GetTicks() >= 200)
+                damaged = false;
+        }
         else
         {
             SDL_SetTextureColorMod(currentTexture, 255, 255, 255);
+            hurt_timer.Start();
         }
         SDL_RenderCopy(des, currentTexture, current_clip,& renderQuad);
-
     }
-
-
-
 //    SDL_SetRenderDrawColor(des, 255, 0, 0, 255);
 //    SDL_RenderDrawRect(des, &ATK_Rect);
 //    SDL_SetRenderDrawColor(des, 255, 255, 0, 255);
@@ -297,7 +326,7 @@ void Player::HandleInput(SDL_Event event)
             case SDLK_d: inp_type.right = 1; break;
             case SDLK_SPACE: if ( on_ground == 1)
                 inp_type.jump = 1, jump_input_timer.Start(); break;
-            case SDLK_u:
+            case SDLK_j:
                 inp_type.attack = 1; break;
         }
     }
@@ -307,7 +336,7 @@ void Player::HandleInput(SDL_Event event)
         {
             case SDLK_a: inp_type.left = 0; break;
             case SDLK_d: inp_type.right = 0; break;
-            case SDLK_u: inp_type.attack = 0; break;
+            case SDLK_j: inp_type.attack = 0; break;
         }
     }
 
@@ -409,9 +438,9 @@ void Player::CheckToMap(MapObject& map_data)
     {
         if ( map_data.tile[y2][x1] == 141 || map_data.tile[y2][x2] == 141 )
         {
-            if (!first_strike) hp-=10,  first_strike = 1;
+            if (!first_strike) hp-=10, first_strike = 1, damaged = true;
             if ( spike_timer.GetTicks() >= 1000)
-               hp -= 5, spike_timer.Start();
+               hp -= 5, spike_timer.Start() , damaged = true;
         }
         else spike_timer.Start() , first_strike = 0;
         if (y_val > 0)
@@ -453,6 +482,7 @@ void Player::CheckToMap(MapObject& map_data)
 
     x_pos += x_val;
     y_pos += y_val;
+    if ( x2 == 199) is_win = true;
     if ( y_val >= MaxFallSpeed) y_val = MaxFallSpeed;
     if (x_pos - w_true/2 < 0)
     {
