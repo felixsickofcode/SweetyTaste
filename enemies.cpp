@@ -234,6 +234,17 @@ void Enemy::GetDamage(Player& player)
         hasTakenDamage = false;
     }
 }
+void Enemy::Audio(AudioManager& audio)
+{
+    if (actionState == DIE && !playedDieSound) {
+        audio.playSound("edie");
+        playedDieSound = true;
+    }
+
+    if (actionState != DIE) {
+        playedDieSound = false;
+    }
+}
 
 void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x, float player_y, Player& player)
 {
@@ -251,20 +262,19 @@ void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x,
         knockback_distance -= knockback_speed;
         if (knockback_distance <= 0) {
             is_knockback = false;
-            knockback_distance = 20; // reset
+            knockback_distance = 20;
         }
         return;
     }
-    //std :: cout << CheckCollision(HITBOX, player.GetATKRect());
+
     if ( CheckCollision(HITBOX, player.GetATKRect())) GetDamage(player);
-
-
+    else hasTakenDamage = 0;
     y_val += 1;
 
     float dx = x_pos - player_x +35;
     float dy = y_pos - player_y ;
     float distance = sqrt(dx * dx + dy * dy);
-    //std :: cout << actionState << ' ' << frame[actionState] << '\n';
+
     if ( y_val >= MaxFallSpeed ) y_val = MaxFallSpeed;
     MoveToPlayer( player_x, player_y);
 
@@ -322,13 +332,9 @@ void Enemy::DoPlayer(MapObject& map_data, MapObject& visual_map, float player_x,
     CheckToMap(map_data);
 }
 
-
-
-
 void Enemy::CheckToMap(MapObject& map_data)
 {
 
-    //std :: cout << y_pos;
     on_ground = false;
 
     int x1 = 0;
@@ -426,12 +432,13 @@ void EnemyManager::Init(SDL_Renderer* renderer, EnemySpawnPoint spawn_e[], int S
     }
 }
 
-void EnemyManager::Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY, int SL) {
+void EnemyManager::Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY, int SL, AudioManager& audio) {
     for (int i  = 0; i  < SL; i++) {
+
         if ( !e[i].spawned ) e[i].DoPlayer(map_data, visual_map, playerX, playerY, player);
         e[i].SetMapPos(X, Y);
         e[i].DealDamage(player);
-        //std :: cout << e[4].e_hp << '\n';
+        e[i].Audio(audio);
     }
 }
 

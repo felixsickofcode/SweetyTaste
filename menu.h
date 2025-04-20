@@ -16,9 +16,12 @@ public:
     TTF_Font* title_font;
     SDL_Color textColor;
     bool IsMouseOverButton(const SDL_Rect& button);
+
     void DrawFrame(SDL_Renderer* renderer, SDL_Texture* tex, const SDL_Rect& rect);
 private:
+    void DrawDecor(SDL_Renderer* renderer, SDL_Texture* tex);
     SDL_Texture* frameTexture;
+    SDL_Texture* deviderTexture;
     void DrawText(SDL_Renderer* renderer, const std::string& text, SDL_Rect& button);
     void DrawTitle(SDL_Renderer* renderer, const std::string& text, SDL_Rect& button);
     void Draw(SDL_Renderer* renderer);

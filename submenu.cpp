@@ -79,10 +79,11 @@ bool SubMenu::IsMouseOverButton(const SDL_Rect& button) {
 void SubMenu::Draw(SDL_Renderer* renderer)
 {
     frameTexture = LoadTexture( "asset/panel-border-010.png", renderer);
+    deviderTexture = LoadTexture( "asset/divider-003.png", renderer);
+
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &line);
+    DrawDecor(renderer, deviderTexture);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer, 100, 100, 255, 0);
     SDL_RenderFillRect(renderer, &btn1);
@@ -121,6 +122,18 @@ void SubMenu::DrawText(SDL_Renderer* renderer, const std::string& text, SDL_Rect
     SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
     SDL_DestroyTexture(textTexture);
 }
+void SubMenu::DrawDecor(SDL_Renderer* renderer, SDL_Texture* tex)
+{
+    SDL_Rect dst;
+    dst.x = game_w/2 - 80 -15;
+    dst.y = 125;
+    dst.w = 80;
+    dst.h = 9;
+    SDL_RenderCopy(renderer, tex, NULL, &dst);
+    dst.x = game_w/2 +10 ;
+    SDL_RenderCopyEx(renderer, tex, NULL, &dst, 0, NULL, SDL_FLIP_HORIZONTAL);
+}
+
 void SubMenu::DrawTitle(SDL_Renderer* renderer, const std::string& text, SDL_Rect& button)
 {
     SDL_Texture* textTexture = RenderTextToTexture(renderer, text, title_font, textColor);

@@ -20,7 +20,10 @@ public:
     void DrawFrame(SDL_Renderer* renderer, SDL_Texture* tex, const SDL_Rect& rect);
     bool is_win;
 private:
+
     SDL_Texture* frameTexture;
+    SDL_Texture* deviderTexture;
+    void DrawDecor(SDL_Renderer* renderer, SDL_Texture* tex);
     void DrawText(SDL_Renderer* renderer, const std::string& text, SDL_Rect& button);
     void DrawTitle(SDL_Renderer* renderer, const std::string& text, SDL_Rect& button);
     void Draw(SDL_Renderer* renderer);

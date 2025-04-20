@@ -32,7 +32,9 @@ public:
         HURT,
         DIE,
     };
+
     bool LoadImg( SDL_Renderer* screen);
+    void Audio(AudioManager& audio);
     void DealDamage(Player& player);
     void GetDamage(Player& player);
     void UpdateRepeatFrame(int total_frames, ImpTimer& timer, int frame_delay);
@@ -55,6 +57,10 @@ public:
     bool spawned = 0;
     int e_hp;
 private:
+    int lastAttackFrame = -1;
+
+    bool playedDieSound = false;
+
     bool is_knockback = false;
     int knockback_distance = 30;
     int knockback_speed = 4;
@@ -115,7 +121,7 @@ public:
     Enemy& GetEnemy(int i) { return e[i]; }
 
     void Init(SDL_Renderer* renderer, EnemySpawnPoint sp[], int SL);
-    void Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY, int SL);
+    void Update(Player& player, MapObject& map_data, MapObject& visual_map, int X, int Y, float playerX, float playerY, int SL, AudioManager& audio);
     void Render(SDL_Renderer* renderer, EnemySpawnPoint sp[], int SL);
 };
 

@@ -5,7 +5,7 @@
 #include "func.h"
 #include "timer.h"
 #include "player.h"
-
+#include "audio.h"
 
 #define OffsetY 17
 #define OffsetX 47
@@ -30,7 +30,6 @@ public:
         JUMPING,
         ATTACKING,
         FALLING,
-        ATTACKING2,
     };
     bool LoadImg( SDL_Renderer* screen);
     void Interact();
@@ -41,6 +40,7 @@ public:
     void SetClips();
     void CheckToMap(MapObject& map_data);
     void CenterEntityOnMap(MapObject& visual_map);
+    void Audio(AudioManager& audio);
     void DoPlayer(MapObject& map_data, MapObject& visual_map);
     void DrawHP(SDL_Renderer* ren, int cur_hp);
     void SetMapPos(const int x, const int y)
@@ -58,10 +58,8 @@ public:
     bool damaged;
     bool is_win;
 private:
-
-    int attack_phase = 0;
-    bool is_attacking = false;
-
+    Uint32 lastStepTime;
+    int lastAttackFrame;
     SDL_Rect ATK_Rect;
     bool init = 0;
     SDL_Texture* idleTexture = nullptr;
@@ -71,8 +69,6 @@ private:
     SDL_Texture* tex_bg = nullptr;
     SDL_Texture* tex_hp = nullptr;
     SDL_Texture* tex_bar= nullptr;
-
-
 
     float x_val;
     float y_val;
@@ -112,6 +108,7 @@ private:
     ImpTimer jump_input_timer;
     ImpTimer hurt_timer;
     ImpTimer attack_input_timer;
+    ImpTimer walk_sound_timer;
     int frame_delay = 100;
 };
 

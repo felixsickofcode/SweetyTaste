@@ -1,12 +1,13 @@
 # depslib dependency file v1.0
-1745094247 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
+1745151950 source:c:\users\admin\onedrive\desktop\sweetytatse\player.cpp
 	"player.h"
 
-1745086752 c:\users\admin\onedrive\desktop\sweetytatse\player.h
+1745147184 c:\users\admin\onedrive\desktop\sweetytatse\player.h
 	"baseobj.h"
 	"func.h"
 	"timer.h"
 	"player.h"
+	"audio.h"
 
 1744285628 source:c:\users\admin\onedrive\desktop\sweetytatse\game.cpp
 
@@ -14,7 +15,7 @@
 	<SDL.h>
 	"player.h"
 
-1745093290 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
+1745148442 source:c:\users\admin\onedrive\desktop\sweetytatse\main.cpp
 	"map.h"
 	"func.h"
 	"baseobj.h"
@@ -294,10 +295,11 @@
 1745093312 source:c:\users\admin\onedrive\desktop\sweetytatse\map.cpp
 	"Map.h"
 
-1745092707 c:\users\admin\onedrive\desktop\sweetytatse\func.h
+1745131121 c:\users\admin\onedrive\desktop\sweetytatse\func.h
 	<SDL.h>
 	<SDL_image.h>
 	<SDL_ttf.h>
+	<SDL_mixer.h>
 	<iostream>
 	<string>
 	<vector>
@@ -320,25 +322,31 @@
 1744638998 c:\users\admin\onedrive\desktop\sweetytatse\timer.h
 	"func.h"
 
-1745094203 source:c:\users\admin\onedrive\desktop\sweetytatse\enemies.cpp
+1745149021 source:c:\users\admin\onedrive\desktop\sweetytatse\enemies.cpp
 	"enemies.h"
 
-1745092934 c:\users\admin\onedrive\desktop\sweetytatse\enemies.h
+1745146327 c:\users\admin\onedrive\desktop\sweetytatse\enemies.h
 	"baseobj.h"
 	"func.h"
 	"timer.h"
 	"enemies.h"
 	"player.h"
 
-1745086446 source:c:\users\admin\onedrive\desktop\sweetytatse\menu.cpp
+1745130055 source:c:\users\admin\onedrive\desktop\sweetytatse\menu.cpp
 	"menu.h"
 
-1745085969 c:\users\admin\onedrive\desktop\sweetytatse\menu.h
+1745096328 c:\users\admin\onedrive\desktop\sweetytatse\menu.h
 	"func.h"
 
-1745087551 source:c:\users\admin\onedrive\desktop\sweetytatse\submenu.cpp
+1745130210 source:c:\users\admin\onedrive\desktop\sweetytatse\submenu.cpp
 	"submenu.h"
 
-1745087116 c:\users\admin\onedrive\desktop\sweetytatse\submenu.h
+1745130110 c:\users\admin\onedrive\desktop\sweetytatse\submenu.h
+	"func.h"
+
+1745145070 source:c:\users\admin\onedrive\desktop\sweetytatse\audio.cpp
+	"audio.h"
+
+1745135112 c:\users\admin\onedrive\desktop\sweetytatse\audio.h
 	"func.h"
 
