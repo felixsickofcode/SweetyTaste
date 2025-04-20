@@ -2,7 +2,7 @@
 
 ## 🧭 Giới thiệu
 
-Đây là một trò chơi **platformer 2D** với bản đồ được thiết kế thủ công bằng **Tiled**. Người chơi điều khiển nhân vật chính khám phá các bản đồ, vượt chướng ngại vật và sống sót trước những thử thách. Trò chơi nhấn mạnh vào **yếu tố khám phá**, **điều khiển mượt mà** và **giao diện thân thiện**.
+Đây là một trò chơi **platformer 2D** với bản đồ được thiết kế thủ công bằng **Tiled**. Người chơi điều khiển nhân vật chính khám phá các bản đồ, vượt chướng ngại vật và sống sót trước những thử thách. 
 
 ## 🎮 Điều khiển
 
